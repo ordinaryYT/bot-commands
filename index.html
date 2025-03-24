@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortnite Bot Commands</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer>
+        // Define simple patterns and responses
+        const responses = {
+            "hello": "Hello! How can I assist you today?",
+            "hi": "Hi there! How can I help you today?",
+            "fortnite": "Fortnite is an exciting game! What would you like to know?",
+            "commands": "I can help you with Fortnite Bot commands! Try searching for a command in the list.",
+            "shop-items": "Check the Fortnite item shop with the command !shop.",
+            "ready": "Use !ready to mark yourself as ready for a match.",
+            "unready": "Use !unready to mark the bot as unready for a match.",
+            "crowns": "Use !crowns to change the bots Fortnite crown wins.",
+            "level": "Use !level to change the bots current Fortnite level.",
+            "emote": "Use !emote to make the bot do eny fortnite emote.",
+            "outfit": "Use !outfit to make the bot wear eny Fortnite skin.",
+            "sitout": "Use !sitout to mark the bot as sitting out of the match.(to make it sitin type the !ready command)",
+            "promote": "Use !promote to promote you to party leader.",
+            "help": "For help, simply search for a command from the list above. I'm here to assist you with any Fortnite commands!"
+        };
+
+        // Function to get a response based on input
+        function chatbotResponse() {
+            const userInput = document.getElementById('chat-input').value.toLowerCase();
+            const chatbotOutput = document.getElementById('chat-output');
+
+            let response = getAdvancedResponse(userInput);
+
+            chatbotOutput.textContent = response;
+            document.getElementById('chat-input').value = '';
+        }
+
+        // Simple pattern matching and response function
+        function getAdvancedResponse(userInput) {
+            // Look for exact match in predefined responses
+            for (const key in responses) {
+                if (userInput.includes(key)) {
+                    return responses[key];
+                }
+            }
+
+            // If no exact match, return a default response
+            return "Sorry, I didn't understand that. Could you ask something else?";
+        }
+
+        // Function to filter commands based on search input
+        function filterCommands() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const rows = document.querySelectorAll('.commands tbody tr');
+
+            rows.forEach(row => {
+                const commandCell = row.querySelector('td:first-child').textContent.toLowerCase();
+                const descriptionCell = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+
+                // If either the command or description includes the search input, show the row
+                if (commandCell.includes(searchInput) || descriptionCell.includes(searchInput)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Function to handle copy command button click
+        function copyCommand(button) {
+            const command = button.closest('tr').querySelector('td:first-child').textContent;
+            navigator.clipboard.writeText(command).then(() => {
+                alert(`${command} copied to clipboard!`);
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Fortnite Bot Commands</h1>
+    </header>
+    <main>
+        <!-- Chatbot Section -->
+        <section id="chatbot">
+            <h2>AI Chatbot</h2>
+            <div style="background: #333; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <div id="chat-output" style="color: white; margin-bottom: 10px;">Ask me anything about Fortnite Bot commands!</div>
+                <input type="text" id="chat-input" placeholder="Ask the AI..." style="padding: 10px; width: 80%; margin-bottom: 10px; border-radius: 5px; border: none; background: #222; color: white;">
+                <button onclick="chatbotResponse()" style="padding: 5px 10px; background: #444; color: white; border: none; cursor: pointer; border-radius: 5px;">Ask</button>
+            </div>
+        </section>
+
+        <!-- Search and Commands Section -->
+        <input type="text" id="search" placeholder="Search commands..." onkeyup="filterCommands()" style="padding: 10px; width: 80%; margin: 20px auto; display: block; border-radius: 5px; border: none; background: #222; color: white;">
+        <section class="commands">
+            <h2>Available Commands</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Command Example</th>
+                        <th>Description</th>
+                        <th>Copy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>!shop-items</td>
+                        <td>!shop-items</td>
+                        <td>Shows the current Fortnite item shop.</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                    <tr>
+                        <td>!ready</td>
+                        <td>!ready</td>
+                        <td>Marks the bot as ready for a match.</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                    <tr>
+                        <td>!unready</td>
+                        <td>!unready</td>
+                        <td>Marks the bot as unready for a match.</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                    <tr>
+                        <td>!crowns</td>
+                        <td>!crowns 69</td>
+                        <td>changes the bots crown wins.</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                    <tr>
+                        <td>!level</td>
+                        <td>!level 69</td>
+                        <td>Change the Fortnite bot's current Fortnite level.</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                    <tr>
+                        <td>!emote</td>
+                        <td>!emote floss</td>
+                        <td>Make the bot do any Fortnite emote.</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                    <tr>
+                        <td>!outfit</td>
+                        <td>!outfit ikonik</td>
+                        <td>Change the bot's current Fortnite skin.</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                    <tr>
+                        <td>!sitout</td>
+                        <td>!sitout</td>
+                        <td>Marks the bot as sitting out of the match.(to make it sit in type the !ready command)</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                    <tr>
+                        <td>!promote</td>
+                        <td>!promote</td>
+                        <td>Promotes you to the party leader.</td>
+                        <td><button onclick="copyCommand(this)">Copy</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Fortnite Bot</p>
+    </footer>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            padding: 20px;
+            background: #1e1e1e;
+        }
+        main {
+            padding: 20px;
+        }
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            background: #222;
+        }
+        button {
+            padding: 5px 10px;
+            background: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #666;
+        }
+        footer {
+            padding: 10px;
+            background: #1e1e1e;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</body>
+</html>
